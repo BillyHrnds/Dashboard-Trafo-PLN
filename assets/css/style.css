@@ -1,0 +1,2073 @@
+/* Modern Dashboard 2025 - Basic Version */
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Notification CSS Pure Implementation */
+.notification-wrapper {
+    position: relative;
+}
+
+.notification-toggle {
+    display: none;
+}
+
+.notification-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 350px;
+    background: var(--bg-secondary);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-heavy);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    max-height: 450px;
+    overflow: hidden;
+}
+
+.notification-toggle:checked + .notification-btn + .notification-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-glass);
+}
+
+.notification-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 50%;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+.close-btn:hover {
+    background: var(--bg-glass-hover);
+    color: var(--text-primary);
+}
+
+.notification-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition-fast);
+    cursor: pointer;
+}
+
+.notification-item:hover {
+    background: var(--bg-glass-hover);
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+}
+
+.notification-icon.order {
+    background: var(--success-gradient);
+}
+
+.notification-icon.user {
+    background: var(--primary-gradient);
+}
+
+.notification-icon.payment {
+    background: var(--warning-gradient);
+}
+
+.notification-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.notification-title {
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.notification-message {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+    line-height: 1.4;
+}
+
+.notification-time {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.notification-footer {
+    padding: 0.75rem 1rem;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-glass);
+}
+
+.view-all-btn {
+    display: block;
+    text-align: center;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: var(--transition-fast);
+}
+
+.view-all-btn:hover {
+    color: var(--primary-hover);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .notification-dropdown {
+        width: 300px;
+        right: -50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .notification-dropdown {
+        width: 280px;
+        right: -80px;
+    }
+}
+
+/* Loading Screen */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading-spinner {
+    text-align: center;
+    color: var(--text-primary);
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--border-color);
+    border-top: 3px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-spinner p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+:root {
+   /* Blue (Total Data) */
+    --primary-gradient: linear-gradient(135deg, #2AA7E1 0%, #0077B6 100%);
+    
+    /* Green (Aman) */
+    --success-gradient: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    
+    /* YELLOW/KUNING (Underload) - Diperbarui agar Kuning Tegas */
+    --warning-gradient: linear-gradient(135deg, #FFD700 0%, #FFB700 100%);
+    
+    /* RED/MERAH (Overload) - Diperbarui agar Merah Bahaya */
+    --danger-gradient: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);
+    /* --- BACKGROUND (CLEAN WHITE THEME) --- */
+    --bg-primary: #F3F4F6;      /* Background Halaman (Abu sangat muda) */
+    --bg-secondary: #FFFFFF;    /* Background Sidebar & Kartu (Putih Bersih) */
+    --bg-tertiary: #F9FAFB;     /* Background Elemen Kecil */
+    
+    /* Glass Effect (Transparansi Halus) */
+    --bg-glass: rgba(255, 255, 255, 0.85);
+    --bg-glass-hover: rgba(42, 167, 225, 0.1); /* Efek hover ada sentuhan biru tipis */
+    
+    /* --- TYPOGRAPHY --- */
+    --text-primary: #111827;    /* Hitam Pekat untuk Judul */
+    --text-secondary: #4B5563;  /* Abu Tua untuk Konten */
+    --text-muted: #9CA3AF;      /* Abu Muda untuk Label */
+    
+    /* --- BORDERS & SHADOWS --- */
+    --border-color: rgba(0, 0, 0, 0.08);
+    
+    /* Bayangan Biru Tipis agar terasa modern */
+    --shadow-light: 0 4px 6px -1px rgba(42, 167, 225, 0.1); 
+    --shadow-medium: 0 10px 15px -3px rgba(42, 167, 225, 0.15);
+    --shadow-heavy: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    
+    /* --- DIMENSIONS (TETAP) --- */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s ease;
+}
+
+/* Opsi Mode Gelap (Jika tombol bulan diklik) */
+[data-theme="dark"] {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #334155;
+    --bg-glass: rgba(30, 41, 59, 0.8);
+    --bg-glass-hover: rgba(30, 41, 59, 0.9);
+    
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    
+    --border-color: rgba(255, 255, 255, 0.1);
+    --shadow-light: 0 8px 32px rgba(0, 0, 0, 0.2);
+    --shadow-medium: 0 15px 35px rgba(0, 0, 0, 0.3);
+    --shadow-heavy: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: var(--transition);
+}
+
+/* Glassmorphism Background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+    z-index: -1;
+    animation: backgroundShift 20s ease-in-out infinite;
+    opacity: 0.7;
+}
+
+[data-theme="light"] body::before {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.08) 0%, transparent 50%);
+    opacity: 0.5;
+}
+
+@keyframes backgroundShift {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 280px;
+    background: rgba(26, 26, 46, 0.8);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    z-index: 1000;
+    transition: var(--transition);
+}
+
+[data-theme="light"] .sidebar {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.sidebar-header {
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.sidebar-toggle {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-fast);
+    display: none;
+}
+
+.mobile-toggle {
+    display: none;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    margin-right: 1rem;
+}
+
+.mobile-toggle:hover {
+    background: var(--bg-glass-hover);
+    color: var(--text-primary);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-toggle:hover {
+    color: var(--text-primary);
+    background: var(--bg-glass);
+}
+
+.sidebar-nav {
+    flex: 1;
+    padding: 1rem 0;
+    overflow-y: auto;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.nav-item {
+    margin: 0.25rem 1rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: var(--transition-fast);
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background: var(--bg-glass);
+    color: var(--text-primary);
+    transform: translateX(4px);
+}
+
+.nav-item.active .nav-link {
+    background: var(--primary-gradient);
+    color: white;
+    box-shadow: var(--shadow-light);
+}
+
+.nav-link i {
+    width: 20px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.nav-badge {
+    background: var(--secondary-gradient);
+    color: white;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+    min-width: 20px;
+    text-align: center;
+    font-weight: 600;
+    margin-left: auto;
+}
+
+.nav-item.active .nav-badge {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-footer {
+    padding: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.user-profile {
+    background-color: var(--bg-card); /* Otomatis Putih di Light Mode */
+    
+    /* INI YANG MEMBUAT SHADOW (BAYANGAN) */
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 
+                0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    
+    border-radius: 16px; /* Sudut membulat */
+    padding: 15px;       /* Jarak dalam */
+    border: 1px solid var(--border-color); /* Garis tipis pinggir */
+    
+    /* Biar rapi */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+}
+
+/* Efek saat kursor diarahkan (Makin timbul) */
+.user-profile:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+                0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-color: var(--primary-color); /* Pinggiran jadi biru saat disentuh */
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+}
+
+.user-info {
+    flex: 1;
+}
+
+.user-name {
+    display: block;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.user-role {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    margin-left: 280px;
+    padding: 2rem;
+    transition: var(--transition);
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    gap: 2rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.page-subtitle {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Search Box */
+.search-box {
+    position: relative;
+}
+
+.search-box input {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    width: 300px;
+    transition: var(--transition-fast);
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-box i {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Action Buttons */
+.action-btn {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 0.75rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    position: relative;
+    font-size: 1.1rem;
+}
+
+.action-btn:hover {
+    background: var(--bg-glass-hover);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+
+.action-btn .notification-dot {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 8px;
+    height: 8px;
+    background: #ef4444;
+    border-radius: 50%;
+    border: 2px solid var(--bg-secondary);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 0.75rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-size: 1.1rem;
+}
+
+.theme-toggle:hover {
+    background: var(--bg-glass-hover);
+    color: var(--text-primary);
+}
+
+/* User Menu */
+.user-menu {
+    position: relative;
+}
+
+.user-menu-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.user-menu-toggle:hover {
+    background: var(--bg-glass-hover);
+}
+
+.user-menu-dropdown {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 0.5rem;
+    min-width: 200px;
+    box-shadow: var(--shadow-heavy);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: var(--transition-fast);
+    z-index: 9998;
+}
+
+.user-menu.active .user-menu-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.user-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-fast);
+}
+
+.user-menu-item:hover {
+    background: var(--bg-glass);
+    color: var(--text-primary);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-size: 1.1rem;
+}
+
+.theme-toggle:hover {
+    background: var(--bg-glass-hover);
+    transform: scale(1.05);
+}
+
+/* Search Box */
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-box i {
+    position: absolute;
+    left: 1rem;
+    color: var(--text-secondary);
+    z-index: 1;
+}
+
+.search-box input {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    width: 300px;
+    transition: var(--transition-fast);
+    backdrop-filter: blur(10px);
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    background: var(--bg-glass-hover);
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+}
+
+/* Header Actions */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.action-btn {
+    position: relative;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    backdrop-filter: blur(10px);
+}
+
+.action-btn:hover {
+    background: var(--bg-glass-hover);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+}
+
+.badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--secondary-gradient);
+    color: white;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 10px;
+    min-width: 18px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.user-menu {
+    position: relative;
+}
+
+.user-avatar-small {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.user-avatar-small:hover {
+    border-color: #667eea;
+    transform: scale(1.05);
+}
+
+/* Stats Section */
+.stats-section {
+    margin-bottom: 2rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    z-index: 200;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--primary-gradient);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+.stat-card:nth-child(2)::before {
+    background: var(--success-gradient);
+}
+
+.stat-card:nth-child(3)::before {
+    background: var(--warning-gradient);
+}
+
+.stat-card:nth-child(4)::before {
+    background: var(--danger-gradient);
+}
+
+.stat-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.stat-icon.revenue {
+    background: var(--primary-gradient);
+}
+
+.stat-icon.users {
+    background: var(--secondary-gradient);
+}
+
+.stat-icon.orders {
+    background: var(--success-gradient);
+}
+
+.stat-icon.conversion {
+    background: var(--warning-gradient);
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+    line-height: 1;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-change {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.stat-change.positive {
+    color: #10b981;
+}
+
+.stat-change.negative {
+    color: #ef4444;
+}
+
+.stat-change i {
+    font-size: 0.8rem;
+}
+
+/* cs Section */
+.charts-section {
+    margin-bottom: 2rem;
+}
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.chart-card {
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition: var(--transition);
+}
+
+.chart-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-light);
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.chart-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.chart-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+}
+
+/* Activity Section */
+.activity-section {
+    margin-bottom: 2rem;
+}
+
+.activity-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.activity-card {
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition: var(--transition);
+}
+
+.activity-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-light);
+}
+
+.activity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.activity-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.view-all {
+    color: #667eea;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition-fast);
+}
+
+.view-all:hover {
+    color: #5a67d8;
+    text-decoration: underline;
+}
+
+/* Recent Activity */
+.activity-list {
+    list-style: none;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition-fast);
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-item:hover {
+    background: var(--bg-glass);
+    margin: 0 -1rem;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.activity-icon.user {
+    background: var(--primary-gradient);
+}
+
+.activity-icon.order {
+    background: var(--success-gradient);
+}
+
+.activity-icon.payment {
+    background: var(--warning-gradient);
+}
+
+.activity-icon.review {
+    background: var(--secondary-gradient);
+}
+
+.activity-content {
+    flex: 1;
+}
+
+.activity-text {
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.activity-time {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+/* Top Products */
+.product-list {
+    list-style: none;
+}
+
+.product-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition-fast);
+}
+
+.product-item:last-child {
+    border-bottom: none;
+}
+
+.product-item:hover {
+    background: var(--bg-glass);
+    margin: 0 -1rem;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+}
+
+.product-image {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-md);
+    object-fit: cover;
+    border: 1px solid var(--border-color);
+}
+
+.product-info {
+    flex: 1;
+}
+
+.product-name {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.product-category {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+.product-stats {
+    text-align: right;
+}
+
+.product-sales {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.product-revenue {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+/* Progress Bar */
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--bg-tertiary);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary-gradient);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+/* Mobile Overlay */
+.mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-fast);
+}
+
+.mobile-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* LOGIN */
+/* --- PERBAIKAN BUG HOVER DARK MODE --- */
+
+/* 1. Reset warna teks saat hover agar tidak jadi hitam otomatis */
+.table-hover tbody tr:hover {
+    color: var(--text-primary) !important; /* Ikuti warna tema (Putih saat Dark Mode) */
+    background-color: var(--bg-glass-hover) !important; /* Gunakan background transparan kita */
+}
+
+/* 2. Paksa sel tabel (td/th) untuk patuh pada warna tersebut */
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+    color: var(--text-primary) !important;
+    background-color: transparent !important; /* Biar tidak tertimpa warna putih bootstrap */
+    box-shadow: inset 0 0 0 9999px var(--bg-glass-hover); /* Trik agar background row merata */
+}
+
+/* 3. Khusus Mode Gelap: Pastikan Hover Text Putih Mutlak */
+[data-theme="dark"] .table-hover tbody tr:hover td,
+[data-theme="dark"] .table-hover tbody tr:hover th {
+    color: #ffffff !important;
+    box-shadow: inset 0 0 0 9999px rgba(255, 255, 255, 0.05); /* Efek sorot lampu tipis saat gelap */
+}
+
+/* --- KUSTOMISASI WARNA TABEL DATA --- */
+
+/* 1. Kolom No Gardu (Kolom Pertama) -> Selalu Biru PLN */
+.table tbody tr td:first-child {
+    color: #2AA7E1 !important; /* Warna Biru Request Bapak */
+    font-weight: 800; /* Tebal */
+    letter-spacing: 0.5px;
+}
+
+/* 2. Kolom Sisanya -> Ikuti Warna Tema (Putih di Dark Mode, Gelap di Light Mode) */
+.table tbody tr td {
+    color: var(--text-primary) !important; 
+    vertical-align: middle;
+    transition: all 0.2s ease;
+}
+
+/* --- EFEK HOVER (SAAT KURSOR DEKAT) --- */
+
+/* A. Saat Hover, No Gardu jadi lebih menyala (Glowing) */
+.table-hover tbody tr:hover td:first-child {
+    color: #2AA7E1 !important;
+    text-shadow: 0 0 15px rgba(42, 167, 225, 0.6); /* Efek cahaya biru */
+    transform: scale(1.05); /* Sedikit membesar biar keren */
+}
+
+/* B. Saat Hover, Kolom Sisa Tetap Warnanya (Jangan jadi hitam) */
+.table-hover tbody tr:hover td {
+    color: var(--text-primary) !important;
+    background-color: var(--bg-glass-hover) !important; /* Background transparan */
+}
+
+/* --- MODAL DARK MODE SUPPORT --- */
+
+/* 1. Background Modal Mengikuti Tema */
+.modal-content {
+    background-color: var(--bg-secondary); /* Putih di Light, Gelap di Dark */
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+/* 2. Garis Pembatas Modal */
+.modal-header, .modal-footer {
+    border-color: var(--border-color);
+}
+
+/* 3. Inputan di Dalam Modal (Agar tidak silau di Dark Mode) */
+.modal-body .form-control, 
+.modal-body .input-group-text {
+    background-color: var(--bg-tertiary) !important; /* Abu muda di Light, Abu tua di Dark */
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* 4. Fokus Input */
+.modal-body .form-control:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 3px rgba(42, 167, 225, 0.2);
+}
+
+/* 5. Ikon Input (User & Gembok) */
+.modal-body .input-group-text i {
+    color: var(--text-secondary);
+}   
+
+/* --- FIX TEXT LOGIN MODAL (DARK MODE) --- */
+
+/* 1. Paksa Label (Username/Password) mengikuti warna tema */
+.modal-body label {
+    color: var(--text-secondary) !important; /* Otomatis jadi putih abu saat Dark Mode */
+}
+
+/* 2. Paksa Inputan (Teks yang diketik) mengikuti warna tema */
+.modal-body .form-control {
+    color: var(--text-primary) !important; /* Putih saat Dark, Hitam saat Light */
+    background-color: var(--bg-tertiary) !important; /* Background input menyesuaikan */
+}
+
+/* 3. Warna Placeholder (Teks 'Masukkan Username') */
+.modal-body .form-control::placeholder {
+    color: var(--text-muted) !important;
+    opacity: 0.6;
+}
+
+/* 4. Ikon di sebelah input (User & Gembok) */
+.modal-body .input-group-text {
+    background-color: var(--bg-tertiary) !important;
+    border-color: var(--border-color) !important;
+}
+.modal-body .input-group-text i {
+    color: var(--text-primary) !important;
+}
+/* --- FIX MODAL LOGIN (DARK MODE SUPPORT) --- */
+
+/* 1. Background & Warna Teks Modal */
+.modal-content {
+    background-color: var(--bg-card) !important; /* Putih di Light, Gelap di Dark */
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color);
+}
+
+/* 2. Garis Pembatas */
+.modal-header, .modal-footer {
+    border-color: var(--border-color) !important;
+}
+
+/* 3. Inputan Username & Password */
+.modal-body .form-control {
+    background-color: var(--bg-body) !important; /* Lebih gelap sedikit dari kartu */
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+/* 4. Saat Inputan Diklik (Fokus) */
+.modal-body .form-control:focus {
+    background-color: var(--bg-body) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 3px rgba(42, 167, 225, 0.2);
+}
+
+/* 5. Ikon di Samping Input (User & Gembok) */
+.modal-body .input-group-text {
+    background-color: var(--bg-body) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-muted) !important;
+}
+
+/* 6. Warna Placeholder (Teks "Masukkan Username") */
+.modal-body .form-control::placeholder {
+    color: var(--text-muted) !important;
+    opacity: 0.6;
+}
+
+/* 7. Tombol Silang (Close) jadi Putih saat Dark Mode */
+[data-theme="dark"] .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* ===========================================================
+   FORCE DARK LOGIN MODAL (TAMPILAN KUNCI HITAM PERMANEN)
+   =========================================================== */
+
+/* 1. KUNCI BACKGROUND MODAL JADI GELAP */
+.admin-glass-content,
+[data-theme="light"] .admin-glass-content {
+    background: #151922 !important; /* Warna Hitam Gelap (Hardcode) */
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+    color: #ffffff !important; /* Teks Wajib Putih */
+}
+
+/* 2. HEADER TRANSPARAN */
+.admin-glass-header,
+[data-theme="light"] .admin-glass-header {
+    background: transparent !important;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+}
+
+/* 3. INPUT FIELD (KOLOM ISIAN) JADI GELAP */
+.admin-glass-input,
+[data-theme="light"] .admin-glass-input {
+    background-color: rgba(255, 255, 255, 0.05) !important; /* Abu Transparan Gelap */
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important; /* Teks Ketikan Putih */
+}
+
+/* 4. SAAT INPUT DIKLIK (FOKUS) */
+.admin-glass-input:focus,
+[data-theme="light"] .admin-glass-input:focus {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: #2AA7E1 !important; /* Biru PLN */
+    color: #ffffff !important;
+    box-shadow: 0 0 0 4px rgba(42, 167, 225, 0.2) !important;
+}
+
+/* 5. PLACEHOLDER (TEKS SAMAR) */
+.admin-glass-input::placeholder,
+[data-theme="light"] .admin-glass-input::placeholder {
+    color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* 6. TOMBOL CLOSE (SILANG) SELALU PUTIH */
+.admin-glass-close,
+[data-theme="light"] .admin-glass-close {
+    filter: invert(1) grayscale(100%) brightness(200%) !important;
+    opacity: 0.7;
+}
+.admin-glass-close:hover { opacity: 1; }
+
+/* 7. IKON KUNCI DI TENGAH */
+.admin-icon-box,
+[data-theme="light"] .admin-icon-box {
+    background: transparent !important; /* Transparan aja biar ikonnya menonjol */
+    box-shadow: none !important;
+    margin-bottom: 0 !important;
+}
+.admin-icon-box i {
+    font-size: 3rem !important; /* Perbesar Ikon */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* 8. TOMBOL MASUK (BIRU GRADASI) */
+button[name="login_admin"] {
+    background: linear-gradient(135deg, #2AA7E1 0%, #0077B6 100%) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 700 !important;
+}
+
+/* --- UNIVERSAL MODAL THEME FIX --- */
+
+/* 1. Paksa Modal mengikuti Variabel Tema */
+.modal-content, 
+.modal-header, 
+.modal-body, 
+.modal-footer {
+    background-color: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* 2. Tabel di dalam Modal (Hapus warna striping bawaan) */
+.modal-body .table {
+    color: var(--text-primary) !important;
+    --bs-table-color: var(--text-primary) !important;
+    --bs-table-bg: transparent !important;
+    --bs-table-border-color: var(--border-color) !important;
+}
+
+/* 3. Header Tabel (Thead) */
+.modal-body .table thead th {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    border-bottom: 2px solid var(--border-color) !important;
+}
+
+/* 4. Kotak-kotak data (Card kecil di dalam modal) */
+.info-box-glass {
+    background-color: var(--bg-tertiary) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+/* 5. List Group (Grounding) */
+.list-group-item {
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* 6. Tab Navigasi */
+.nav-pills .nav-link {
+    color: var(--text-muted) !important;
+}
+.nav-pills .nav-link.active {
+    background-color: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+
+/* --- FIX MODAL TEXT & CLOSE BUTTON (WHITE MODE) --- */
+
+/* 1. Pastikan Tombol Close (Silang) HITAM saat Mode Terang */
+[data-theme="light"] .btn-close {
+    filter: none !important; /* Jangan di-invert (biarkan hitam bawaan) */
+    opacity: 0.5;
+}
+[data-theme="light"] .btn-close:hover {
+    opacity: 1;
+}
+
+/* 2. Pastikan Tombol Close (Silang) PUTIH saat Mode Gelap */
+[data-theme="dark"] .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%) !important;
+    opacity: 0.8;
+}
+
+/* 3. Paksa Judul Modal agar Kontras */
+.modal-title {
+    color: var(--text-primary) !important; /* Hitam di Light, Putih di Dark */
+}
+
+/* 4. Pastikan Sub-teks (Alamat/Info) terlihat */
+.modal-header p, 
+.modal-header small, 
+.modal-header i {
+    color: var(--text-muted) !important;
+}
+
+/* 5. Reset Background Header agar ikut tema */
+.modal-header {
+    background-color: var(--bg-card) !important;
+}
+
+/* =========================================================
+   FIX SPESIFIK: HANYA TULISAN 'UNIT TERDATA' (TEXT-MUTED)
+   ========================================================= */
+
+/* Target: Class .text-muted di dalam .stat-card 
+   Kondisi: Hanya saat Dark Mode 
+*/
+[data-theme="dark"] .stat-card .text-muted {
+    color: rgba(255, 255, 255, 0.9) !important; /* Jadi Putih Terang */
+}
+
+/* Pastikan yang berwarna (Hijau/Kuning/Merah) TIDAK TERGANGGU */
+[data-theme="dark"] .stat-card .text-success { color: #2ecc71 !important; }
+[data-theme="dark"] .stat-card .text-danger { color: #ef4444 !important; }
+/* Untuk yang kuning biasanya inline style, jadi aman */
+
+/* =========================================================
+   FIX FONT & FORM STYLE (AGAR TERBACA JELAS)
+   ========================================================= */
+
+/* 1. Paksa semua elemen menggunakan Font Dashboard (Inter) */
+body, h1, h2, h3, h4, h5, h6, 
+p, span, div, label, input, select, textarea, button {
+    font-family: 'Inter', sans-serif !important;
+}
+
+/* 2. Perbaiki Judul Halaman (Input Master Gardu) */
+.page-title {
+    font-weight: 800 !important;
+    letter-spacing: -0.5px;
+    color: var(--text-primary) !important;
+}
+
+/* 3. Perbaiki Label Form (Judul Kolom) agar terbaca di Dark Mode */
+.form-label {
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    margin-bottom: 6px;
+    color: var(--text-secondary); /* Default Light Mode */
+}
+
+/* KHUSUS DARK MODE: Ubah Label jadi Putih Abu */
+[data-theme="dark"] .form-label {
+    color: #cbd5e1 !important; /* Warna Abu Terang */
+}
+
+/* 4. Perbaiki Kotak Input (Agar tidak Putih Menolok di Dark Mode) */
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select,
+[data-theme="dark"] .input-group-text {
+    background-color: rgba(15, 23, 42, 0.6) !important; /* Gelap Transparan */
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #ffffff !important; /* Teks Ketikan Putih */
+}
+
+/* Saat Input Diklik (Fokus) */
+[data-theme="dark"] .form-control:focus,
+[data-theme="dark"] .form-select:focus {
+    background-color: rgba(15, 23, 42, 0.9) !important;
+    border-color: #2AA7E1 !important; /* Border Biru PLN */
+    box-shadow: 0 0 0 3px rgba(42, 167, 225, 0.25) !important;
+}
+
+/* Placeholder (Teks Samar di dalam input) */
+[data-theme="dark"] .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* 5. Perbaiki Judul Section (A. Identitas Gardu) */
+.form-section-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--primary-color) !important;
+}
+
+
+/* =========================================================
+   ANIMASI & KEYFRAMES (BIAR WEBSITE TERASA HIDUP)
+   ========================================================= */
+
+/* 1. Animasi Muncul Halus (Fade In Up) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 2. Animasi Sidebar Muncul (Slide In) */
+@keyframes slideInLeft {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+/* 3. Animasi Pulse (Untuk Status Live) */
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(42, 167, 225, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(42, 167, 225, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(42, 167, 225, 0); }
+}
+
+
+/* =========================================================
+   FIX TOMBOL AKSI (RESPONSIF LAPTOP vs HP)
+   ========================================================= */
+
+/* =========================================================
+   FIX TOMBOL AKSI: LAPTOP (1 BARIS) vs HP (2x2)
+   ========================================================= */
+
+/* 1. TAMPILAN DEFAULT (LAPTOP & TABLET) -> 1 BARIS LURUS */
+.action-grid {
+    display: flex !important;           /* Jejer ke samping */
+    justify-content: center !important; /* Rata tengah horizontal */
+    align-items: center !important;     /* Rata tengah vertikal */
+    gap: 8px !important;                /* Jarak antar tombol */
+    width: 100% !important;
+}
+
+/* Ukuran Tombol agar seragam */
+.action-grid .action-btn {
+    width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
+    font-size: 0.9rem !important;
+    border-radius: 8px !important;
+    
+    /* Pastikan ikon di tengah tombol */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* 2. KHUSUS HP (Layar Kecil < 576px) -> JADI KOTAK 2x2 */
+@media (max-width: 576px) {
+    .action-grid {
+        display: grid !important;              /* Ubah jadi Grid */
+        grid-template-columns: 36px 36px !important; /* 2 Kolom lebar fix */
+        grid-template-rows: auto auto !important;    /* 2 Baris */
+        gap: 5px !important;                   /* Jarak lebih rapat di HP */
+        
+        /* Paksa ke tengah */
+        width: fit-content !important; 
+        margin: 0 auto !important;
+    }
+} 
+
+/* 2. KHUSUS HP (Layar di bawah 576px / 420px) -> Jadi Kotak 2x2 */
+@media (max-width: 576px) {
+    .action-grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* Paksa 2 Kolom */
+        gap: 4px !important;
+        
+        /* Kunci lebar wadah agar tombol terpaksa turun ke bawah (2 atas, 2 bawah) */
+        width: 76px !important; 
+    }
+    
+    /* Kecilkan sedikit tombol di HP */
+    .action-grid .action-btn {
+        width: 34px !important;
+        height: 34px !important;
+        font-size: 0.8rem !important;
+    }
+}
+
+/* Pastikan kolom tabel (td) juga memaksa isinya ke tengah */
+.table td.text-center {
+    vertical-align: middle; /* Tengah secara vertikal */
+    text-align: center;     /* Tengah secara horizontal */
+}
+
+/* TERAPKAN ANIMASI */
+.stat-card {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+/* Beri delay biar muncul bergantian */
+.col-md-3:nth-child(1) .stat-card { animation-delay: 0.1s; }
+.col-md-3:nth-child(2) .stat-card { animation-delay: 0.2s; }
+.col-md-3:nth-child(3) .stat-card { animation-delay: 0.3s; }
+.col-md-3:nth-child(4) .stat-card { animation-delay: 0.4s; }
+
+.chart-card, .card {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+
+   @media (max-width: 1200px) {
+    
+    /* 1. SETTING SIDEBAR (SESUAIKAN WARNA DENGAN TEMA) */
+    .sidebar {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        width: 260px !important;
+        height: 100vh !important;
+        
+        /* REVISI: Gunakan Variabel Tema (Otomatis Hitam/Putih) */
+        background: var(--bg-secondary) !important; 
+        border-right: 1px solid var(--border-color) !important;
+        
+        /* Sembunyikan ke kiri layar */
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        
+        /* Pastikan dia di atas segalanya */
+        z-index: 9999 !important; 
+        box-shadow: none;
+        
+        display: flex !important;
+        flex-direction: column;
+    }
+    
+    /* 2. SAAT SIDEBAR AKTIF (MUNCUL) */
+    .sidebar.active {
+        transform: translateX(0) !important;
+        box-shadow: 10px 0 50px rgba(0,0,0,0.5) !important;
+    }
+
+    /* 3. WARNA TEKS (SESUAIKAN DENGAN TEMA) */
+    .sidebar .nav-link,
+    .sidebar .logo-text,
+    .sidebar .user-name {
+        color: var(--text-primary) !important; /* Ikuti warna teks tema */
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: flex !important;
+    }
+    
+    .sidebar .user-role, 
+    .sidebar i {
+        color: var(--text-secondary) !important;
+    }
+
+    /* 4. LINK AKTIF (TETAP BIRU/PUTIH) */
+    .sidebar .nav-link.active {
+        background: var(--bg-primary) !important; /* Background sedikit beda */
+        color: var(--primary-color) !important; /* Teks Biru */
+        font-weight: 700;
+    }
+    .sidebar .nav-link.active i,
+    .sidebar .nav-link.active span {
+        color: var(--primary-color) !important;
+    }
+
+    /* --- FIX: TOMBOL X (CLOSE) MUNCULKAN --- */
+    .sidebar-toggle {
+        display: flex !important;      /* Wajib Flex biar muncul */
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.1); /* Background transparan */
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        width: 35px;
+        height: 35px;
+        color: #ffffff !important;     /* Ikon Putih */
+        font-size: 1.2rem;
+        cursor: pointer;
+        margin-left: auto;             /* Dorong ke kanan mentok */
+        transition: 0.3s;
+    }
+
+    .sidebar-toggle:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: rotate(90deg);      /* Efek putar saat disentuh */
+    }
+
+    /* Pastikan Header Sidebar Rapi */
+    .sidebar-header {
+        display: flex !important;
+        justify-content: space-between !important; /* Logo kiri, X kanan */
+        align-items: center !important;
+        padding: 1.5rem !important;
+    }
+
+    /* 5. MAIN CONTENT (Lebar Penuh) */
+    .main-content {
+        margin-left: 0 !important;
+        width: 100%;
+    }
+
+    /* 6. TOMBOL HAMBURGER */
+    .mobile-toggle {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--text-primary);
+        cursor: pointer;
+        margin-right: 15px;
+        z-index: 1001;
+    }
+
+    /* 7. LAINNYA */
+    .search-box { display: none !important; }
+    .header { padding: 0.8rem 1rem; }
+    .col-md-3 { width: 50% !important; flex: 0 0 auto; }
+}
+
+/* KHUSUS HP (Layar Sempit < 480px) */
+@media (max-width: 480px) {
+    .col-md-3 { width: 100% !important; }
+    .header-right { gap: 5px; }
+    .page-title { font-size: 1.1rem; }
+}
+
+/* UNTUK HP (Max-Width: 480px) - Tetap 1 kolom */
+@media (max-width: 480px) {
+    .col-md-3 {
+        width: 100% !important;
+    }
+    .header-right {
+        gap: 5px;
+    }
+}
+
+/* 2. LAYAR TABLET (Max-Width: 768px) */
+@media (max-width: 768px) {
+    
+    /* Sidebar: Sembunyi ke kiri */
+    .sidebar {
+        transform: translateX(-260px);
+        transition: transform 0.3s ease-in-out;
+        box-shadow: none;
+    }
+    
+    /* Sidebar: Muncul saat kelas .active ditambahkan via JS */
+    .sidebar.active {
+        transform: translateX(0);
+        box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+    }
+
+    /* Main Content: Full Lebar */
+    .main-content {
+        margin-left: 0 !important;
+        width: 100%;
+    }
+
+    /* Tombol Hamburger (Menu) Muncul */
+    .mobile-toggle {
+        display: block !important;
+        background: transparent;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        cursor: pointer;
+    }
+
+    /* Header: Dirapikan */
+    .header {
+        padding: 1rem;
+    }
+    
+    /* Judul Halaman Mengecil Dikit */
+    .page-title { font-size: 1.2rem; }
+    .page-subtitle { font-size: 0.8rem; display: none; /* Sembunyikan subjudul biar hemat tempat */ }
+
+    /* Search Box Sembunyi di Tablet (Biar gak sempit) */
+    .search-box { display: none !important; }
+    
+    /* Tabel bisa di-scroll ke samping */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* 3. LAYAR HP (Max-Width: 480px) */
+@media (max-width: 480px) {
+    
+    /* Kartu Statistik jadi 1 per baris (Tumpuk ke bawah) */
+    .col-md-3 {
+        width: 100% !important;
+    }
+
+    /* Header Actions (Tombol Login/Tema) merapat */
+    .header-right {
+        align-items: center !important;
+        gap: 6px !important;
+        display: flex !important;
+    }
+    .action-btn {
+        width: 30px; height: 30px;
+        font-size: 0.9rem;
+    }
+
+    /* Form Input Menyesuaikan */
+    .input-group-text {
+        font-size: 0.7rem;
+        padding: 5px;
+    }
+    .form-control {
+        font-size: 0.8rem;
+    }
+
+    /* Modal Login Full Width di HP */
+    .modal-dialog {
+        margin: 10px;
+        width: auto;
+    }
+    
+    /* Peta Leaflet Tinggi Berkurang */
+    #map, #mapPicker {
+        height: 300px !important;
+    }
+
+    /* Tombol Aksi Tabel jadi vertikal atau kecil */
+    .table td button, .table td a {
+        padding: 2px 5px;
+        font-size: 0.8rem;
+    }
+
+    .action-btn {
+        width: 36px !important;  /* Kecilkan sedikit biar pas */
+        height: 36px !important; 
+        margin: 0 !important;    /* Hapus margin luar */
+        padding: 0 !important;   /* Hapus padding dalam */
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .action-btn i, .mobile-toggle i {
+        font-size: 1rem !important;
+        line-height: 0 !important;
+        transform: none !important; /* Reset posisi ikon */
+    }
+}
+
+/* Notification Dropdown */
+.notification-dropdown {
+    animation: slideDown 0.3s ease;
+}
+
+.notification-item:hover {
+    background: var(--bg-glass) !important;
+}
+
+.notification-item:last-child {
+    border-bottom: none !important;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+/* Loading Animation */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.loading {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Utility Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.5s ease-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.scale-in {
+    animation: scaleIn 0.3s ease-out;
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
