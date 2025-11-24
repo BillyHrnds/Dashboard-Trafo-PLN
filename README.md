@@ -1,265 +1,101 @@
-# Modern Dashboard 2025 - Basic Version
+![1](https://github.com/user-attachments/assets/8efddd28-35c2-4aaa-b661-a76cc8319e24)# ⚡ PLN Trafo Monitoring System
 
-## 📊 Overview
+Sistem Informasi berbasis Web untuk memantau, mengelola, dan menganalisis beban Gardu Distribusi PLN secara *real-time* dan akurat.
 
-Modern Dashboard 2025 adalah template dashboard admin yang profesional dan modern dengan desain glassmorphism yang elegan. Template ini dirancang khusus untuk tahun 2025 dengan menggunakan teknologi web terbaru dan tren desain terkini.
+![Dashboard Preview](assets/img/preview_dashboard.png)
+> *Catatan: Ganti `assets/img/preview_dashboard.png` dengan screenshot aplikasi asli Anda.*
 
-## ✨ Features
+## 📖 Overview (Gambaran Umum)
 
-### 🎨 Design Features
-- **Glassmorphism Design** - Efek kaca transparan yang modern
-- **Dark Theme** - Tema gelap yang nyaman untuk mata
-- **Gradient Backgrounds** - Background gradien yang menarik
-- **Smooth Animations** - Animasi halus dan responsif
-- **Modern Typography** - Menggunakan font Inter yang clean
+**PLN Trafo Monitoring** adalah aplikasi web yang dikembangkan untuk mempermudah petugas ULP (Unit Layanan Pelanggan) dalam melakukan pendataan dan pengukuran kinerja trafo distribusi. Aplikasi ini menggantikan metode pencatatan manual dengan sistem digital yang terintegrasi.
 
-### 📱 Responsive Features
-- **Mobile-First Design** - Dioptimalkan untuk perangkat mobile
-- **Responsive Layout** - Menyesuaikan dengan berbagai ukuran layar
-- **Touch-Friendly** - Interface yang mudah digunakan di perangkat sentuh
-- **Cross-Browser Compatible** - Kompatibel dengan semua browser modern
+Masalah utama yang diselesaikan oleh aplikasi ini adalah perhitungan beban manuver dan penentuan status trafo (Overload/Underload/Normal). Dengan fitur **Kalkulasi Otomatis**, petugas cukup memasukkan nilai arus (Ampere) dan tegangan (Volt), sistem akan langsung menghitung persentase pembebanan dan memberikan indikator status peringatan dini.
 
-### 🚀 Functional Features
-- **Interactive Sidebar** - Sidebar yang dapat ditutup/dibuka
-- **Search Functionality** - Fitur pencarian dengan suggestions
-- **Notification System** - Sistem notifikasi real-time
-- **Chart Integration** - Integrasi dengan Chart.js
-- **Loading States** - Loading screen yang smooth
-- **Theme Toggle** - Dapat beralih antara light/dark theme
-
-## 🏗️ Structure
-
-```
-dashboard_template_responsive/
-├── assets/
-│   ├── css/
-│   │   └── style.css          # Main stylesheet
-│   └── js/
-│       └── script.js          # Main JavaScript
-├── index.html                 # Main HTML file
-└── README.md                  # Documentation
-```
-
-## 🛠️ Technologies Used
-
-- **HTML5** - Semantic markup
-- **CSS3** - Modern styling with:
-  - CSS Grid & Flexbox
-  - CSS Variables
-  - Backdrop-filter
-  - CSS Animations
-- **JavaScript ES6+** - Modern JavaScript with:
-  - Classes
-  - Modules
-  - Async/Await
-  - Event Delegation
-- **Chart.js** - For interactive charts
-- **Font Awesome** - For icons
-- **Google Fonts** - Inter font family
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Web browser modern (Chrome, Firefox, Safari, Edge)
-- Web server lokal (opsional untuk development)
-
-### Installation
-
-1. **Download atau clone repository**
-   ```bash
-   git clone [repository-url]
-   cd dashboard_template_responsive
-   ```
-
-2. **Buka dengan web server lokal**
-   ```bash
-   # Menggunakan Python
-   python -m http.server 8000
-   
-   # Menggunakan Node.js
-   npx serve .
-   
-   # Menggunakan PHP
-   php -S localhost:8000
-   ```
-
-3. **Akses di browser**
-   ```
-   http://localhost:8000
-   ```
-
-### Quick Start
-
-Untuk penggunaan langsung, cukup buka file `index.html` di browser modern.
-
-## 📋 Components
-
-### 1. Sidebar Navigation
-- Logo dan branding
-- Menu navigasi dengan icons
-- User profile section
-- Responsive toggle
-
-### 2. Header
-- Page title dan subtitle
-- Search box dengan suggestions
-- Notification dan message buttons
-- Theme toggle
-- User menu dropdown
-
-### 3. Stats Cards
-- Revenue statistics
-- Order statistics
-- User statistics
-- Conversion rate
-- Animated counters
-
-### 4. Charts Section
-- Revenue overview (Line chart)
-- Traffic sources (Doughnut chart)
-- Interactive legends
-- Responsive design
-
-### 5. Activity Feed
-- Recent orders
-- User activities
-- Real-time updates
-- Timestamp display
-
-### 6. Product List
-- Top selling products
-- Sales statistics
-- Product images
-- Revenue tracking
-
-## 🎨 Customization
-
-### Colors
-Edit CSS variables di `assets/css/style.css`:
-
-```css
-:root {
-  --primary-color: #667eea;
-  --secondary-color: #764ba2;
-  --success-color: #4ade80;
-  --warning-color: #fbbf24;
-  --danger-color: #f87171;
-  /* ... */
-}
-```
-
-### Typography
-Ganti font family:
-
-```css
-body {
-  font-family: 'Your Font', sans-serif;
-}
-```
-
-### Layout
-Modifikasi grid layout:
-
-```css
-.stats-grid {
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-}
-```
-
-## 📱 Responsive Breakpoints
-
-- **Desktop**: 1200px+
-- **Tablet**: 768px - 1199px
-- **Mobile**: 480px - 767px
-- **Small Mobile**: < 480px
-
-## 🔧 Browser Support
-
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-
-## 📈 Performance
-
-- **Lighthouse Score**: 95+
-- **First Contentful Paint**: < 1.5s
-- **Largest Contentful Paint**: < 2.5s
-- **Cumulative Layout Shift**: < 0.1
-
-## 🛡️ Security Features
-
-- CSP (Content Security Policy) ready
-- XSS protection
-- CSRF token support ready
-- Secure headers implementation
-
-## 📝 License
-
-MIT License - Bebas digunakan untuk proyek komersial dan non-komersial.
-
-## 🤝 Contributing
-
-1. Fork repository
-2. Buat feature branch
-3. Commit changes
-4. Push ke branch
-5. Buat Pull Request
-
-## 📞 Support
-
-Untuk pertanyaan dan dukungan:
-- Email: support@dashboard-template.com
-- Documentation: [Link to docs]
-- Issues: [GitHub Issues]
-
-## 🔄 Changelog
-
-### v1.0.0 (2025-01-01)
-- Initial release
-- Basic dashboard components
-- Responsive design
-- Chart integration
-- Theme system
-
-## 🚀 Roadmap
-
-### v1.1.0 (Coming Soon)
-- [ ] Additional chart types
-- [ ] Data table component
-- [ ] Form components
-- [ ] Modal system
-- [ ] Toast notifications
-
-### v1.2.0 (Future)
-- [ ] Multi-language support
-- [ ] Advanced filtering
-- [ ] Export functionality
-- [ ] Print styles
-- [ ] PWA support
-
-## 💡 Tips & Best Practices
-
-1. **Performance**
-   - Gunakan lazy loading untuk images
-   - Minify CSS dan JavaScript untuk production
-   - Optimize images dengan format WebP
-
-2. **Accessibility**
-   - Gunakan semantic HTML
-   - Tambahkan ARIA labels
-   - Pastikan contrast ratio yang baik
-
-3. **SEO**
-   - Tambahkan meta tags yang relevan
-   - Gunakan structured data
-   - Optimize untuk Core Web Vitals
-
-4. **Maintenance**
-   - Update dependencies secara berkala
-   - Monitor performance metrics
-   - Test di berbagai browser dan device
+### 🌟 Mengapa Project Ini Dibuat?
+* **Efisiensi:** Mempercepat proses input data lapangan.
+* **Akurasi:** Menghindari human-error dalam perhitungan rumus beban trafo.
+* **Visualisasi:** Memudahkan pemetaan lokasi gardu melalui fitur GIS (Peta Sebaran).
+* **Pelaporan:** Mempermudah rekapitulasi data harian dengan fitur Export Excel.
 
 ---
 
-**Made with ❤️ for modern web development**
+## 🚀 Fitur Utama
+
+1.  **Dashboard Interaktif & Modern:**
+    * Desain UI Glassmorphism yang elegan.
+    * Mendukung **Dark Mode** & **Light Mode** (Auto-save preference).
+    * Statistik ringkas (Total Gardu, Kondisi Aman, Warning, Overload).
+
+2.  **Manajemen Data Gardu (CRUD):**
+    * Database master gardu lengkap (Alamat, Daya, Merk, No Seri).
+    * Integrasi titik koordinat GPS.
+
+3.  **Smart Input Pengukuran:**
+    * **Rumus Otomatis:** Menghitung % Beban LWBP & WBP secara *real-time* saat mengetik.
+    * **Auto-Fill:** Mengambil data pengukuran terakhir secara otomatis untuk mempercepat update data.
+    * **Validasi Cerdas:** Kolom jurusan dan grounding otomatis terkunci/terbuka sesuai inputan.
+
+4.  **Peta Sebaran (GIS):**
+    * Visualisasi lokasi gardu menggunakan **Leaflet.js** (OpenStreetMap).
+    * Pin berwarna sesuai status beban terakhir (Merah = Overload, Hijau = Aman).
+
+5.  **Sistem Keamanan Bertingkat:**
+    * **Guest Mode:** Akses hanya lihat (View Only) menggunakan kode akses.
+    * **Admin Mode:** Akses penuh (Edit/Hapus/Input) menggunakan login terenkripsi.
+
+6.  **Export Laporan:**
+    * Unduh rekapitulasi data lengkap ke format **.XLS (Excel)** dengan satu klik.
+
+---
+
+## 🛠️ Teknologi yang Digunakan
+
+* **Backend:** PHP Native (Procedural Style) - Ringan dan Cepat.
+* **Frontend:** HTML5, CSS3, Bootstrap 5.
+* **Scripting:** JavaScript (jQuery, AJAX).
+* **Database:** MySQL / MariaDB.
+* **Maps API:** Leaflet.js (Gratis & Open Source).
+* **Icons:** FontAwesome 6.
+
+---
+
+## 📦 Cara Instalasi (Localhost)
+
+1.  **Clone Repository**
+    ```bash
+    git clone [https://github.com/username-anda/pln-trafo-monitoring.git](https://github.com/username-anda/pln-trafo-monitoring.git)
+    ```
+2.  **Setup Database**
+    * Buka phpMyAdmin.
+    * Buat database baru dengan nama `db_trafo`.
+    * Import file `database/db_trafo.sql` (Pastikan Anda sudah export database Anda ke folder project).
+3.  **Konfigurasi Koneksi**
+    * Buka file `koneksi.php`.
+    * Sesuaikan `$host`, `$user`, `$pass`, dan `$db` dengan settingan XAMPP/Laragon Anda.
+4.  **Jalankan Aplikasi**
+    * Buka browser dan akses: `http://localhost/pln-trafo-monitoring`
+
+---
+
+## 🔐 Akun Demo
+
+Untuk pengujian, gunakan kredensial berikut:
+
+| Akses                   | Username / Kode | Password |
+| :---------------------- | :-------------- | :---     |
+| **Guest (Login Awal)**  | `pln2025`       | -        |
+| **Admin (Petugas)**     | `tjbalai`       | `12345`  |
+
+---
+
+## 📸 Galeri
+
+*(Silakan tambahkan screenshot aplikasi di sini)*
+* *Dashboard Dark Mode*
+* *Input Form Pengukuran*
+* *Peta Sebaran*
+
+---
+
+**Dikembangkan oleh [Nama Anda]**
+*Web Developer & Database Enthusiast*
