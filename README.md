@@ -1,4 +1,4 @@
-(https://github.com/user-attachments/assets/8efddd28-35c2-4aaa-b661-a76cc8319e24)# ⚡ PLN Trafo Monitoring System
+# ⚡ PLN Trafo Monitoring System
 
 Sistem Informasi berbasis Web untuk memantau, mengelola, dan menganalisis beban Gardu Distribusi PLN secara *real-time* dan akurat.
 
@@ -90,9 +90,6 @@ Untuk pengujian, gunakan kredensial berikut:
 
 ## 📸 Galeri
 
-*(Silakan tambahkan screenshot aplikasi di sini)*
-## 📸 Galeri Aplikasi
-
 ###  Tampilan (Dark Mode)
 
 #### 1. Tampilan Dashboard (Dark Mode)
@@ -128,8 +125,7 @@ Untuk pengujian, gunakan kredensial berikut:
 #### 3. Form Peta Sebaran
 ![Input Form](assets/img/peta-sebaran-light.png)
 
-
 ---
 
-**Dikembangkan oleh [Billy Hernandes Kosasi]**
+**Dikembangkan oleh [Billy Hernandes]**
 *Web Developer & Database Enthusiast*
